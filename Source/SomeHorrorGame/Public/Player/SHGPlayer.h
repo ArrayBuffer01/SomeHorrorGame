@@ -23,6 +23,9 @@ public:
 	// Components
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	TObjectPtr<UCameraComponent> Camera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
+	USceneComponent* ItemHolderComponent;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -57,20 +60,32 @@ public:
 	UFUNCTION()
 	void Interact(const FInputActionValue& Value);
 
+	UFUNCTION()
+	void Pickup(const FInputActionValue& Value);
+
+	UFUNCTION()
+	void UseItem(const FInputActionValue& Value);
+
 	void CheckInteractable();
+
+	UFUNCTION()
+	void SelectItem(AItem* Item);
+
+	UFUNCTION()
+	bool AddItem(AItem* Item);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Interaction")
 	void OnInteractableFocusChanged(AActor* NewInteractable);
 public:
 	// Movement speed properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Speed")
-	float m_fWalkSpeed;
+	float WalkSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Speed")
-	float m_fRunSpeed;
+	float RunSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Speed")
-	float m_fCrouchSpeed;
+	float CrouchSpeed;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Movement")
 	bool bIsSprinting;
@@ -92,31 +107,44 @@ public:
 
 	// Interaction properties
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Interaction")
-	TObjectPtr<AActor> m_pCurrentInteractable;
+	TObjectPtr<AActor> CurrentInteractable;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Interaction")
-	TObjectPtr<UPrimitiveComponent> m_pCurrentInteractableComponent;
+	TObjectPtr<UPrimitiveComponent> CurrentInteractableComponent;
 
 	// Input related properties
 	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputMappingContext> m_pInputMapping;
+	TObjectPtr<UInputMappingContext> InputMapping;
 
 	// Input actions
 	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> m_pMoveAction;
+	TObjectPtr<UInputAction> MoveAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> m_pLookAction;
+	TObjectPtr<UInputAction> LookAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> m_pJumpAction;
+	TObjectPtr<UInputAction> JumpAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> m_pInteractAction;
+	TObjectPtr<UInputAction> InteractAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> m_pCrouchAction;
+	TObjectPtr<UInputAction> CrouchAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> m_pSprintAction;
+	TObjectPtr<UInputAction> SprintAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> PickupAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> UseItemAction;
+
+	// Inventory state
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
+	TObjectPtr<class UInventoryComponent> InventoryComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	TObjectPtr<AItem> StarterItem;
 };
