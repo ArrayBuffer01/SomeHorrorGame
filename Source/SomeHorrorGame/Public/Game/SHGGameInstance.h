@@ -6,6 +6,18 @@
 #include "Engine/GameInstance.h"
 #include "SHGGameInstance.generated.h"
 
+USTRUCT(BlueprintType)
+struct FSettingsData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mouse")
+	bool bInvertMouse = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mouse")
+	float MouseSensitivity = 1.0f;
+};
+
 /**
  * 
  */
@@ -17,6 +29,15 @@ public:
 	// Methods
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerName(const FString& NewPlayerName);
+
+	UFUNCTION(BlueprintCallable)
+	void SetMouseSensitivity(const float NewSens);
+
+	UFUNCTION(BlueprintCallable)
+	void SetInvertMouse(const bool bInvertMouse);
+
+
+	virtual void Init() override;
 public:
 	UPROPERTY(BlueprintReadWrite)
 	FString PlayerName;
@@ -26,4 +47,10 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	bool bIsFirstTimePlaying;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bIsNewGame;
+
+	UPROPERTY(BlueprintReadOnly)
+	FSettingsData Settings;
 };

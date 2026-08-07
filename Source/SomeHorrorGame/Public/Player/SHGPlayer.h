@@ -10,6 +10,7 @@
 class UInputMappingContext;
 class UInputAction;
 class UCameraComponent;
+class USHGGameInstance;
 
 UCLASS()
 class SOMEHORRORGAME_API ASHGPlayer : public ACharacter
@@ -65,6 +66,9 @@ public:
 
 	UFUNCTION()
 	void UseItem(const FInputActionValue& Value);
+
+	UFUNCTION()
+	void DropItem(const FInputActionValue& Value);
 
 	void CheckInteractable();
 
@@ -141,10 +145,16 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> UseItemAction;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> DropItemAction;
+
 	// Inventory state
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
 	TObjectPtr<class UInventoryComponent> InventoryComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	TObjectPtr<AItem> StarterItem;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GameInstance")
+	TObjectPtr<USHGGameInstance> GameInstance;
 };

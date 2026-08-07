@@ -29,5 +29,7 @@ public:
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 
+	void PickupItem_Implementation() override;
+	void ReleaseItem_Implementation() override;
 	void Use_Implementation(AActor* User) override;
 };

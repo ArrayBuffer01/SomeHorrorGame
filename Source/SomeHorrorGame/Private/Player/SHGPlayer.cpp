@@ -5,6 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InventoryComponent.h"
+#include "Game/SHGGameInstance.h"
 #include "Interaction/Item.h"
 #include "Interaction/Interactable.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -57,9 +58,13 @@ void ASHGPlayer::BeginPlay()
 		const bool bSuccess = AddItem(StarterItem);
 		if (bSuccess)
 		{
+			StarterItem->PickupItem();
 			SelectItem(StarterItem);
 		}
 	}
+
+	// Init GI
+	GameInstance = GetGameInstance<USHGGameInstance>();
 }
 
 bool ASHGPlayer::AddItem(AItem* Item)
@@ -96,6 +101,26 @@ void ASHGPlayer::SelectItem(AItem* Item)
 	if (bSuccess)
 	{
 		Item->SetActorHiddenInGame(false);
+	}
+}
+
+void ASHGPlayer::DropItem(const FInputActionValue& Value)
+{
+	TObjectPtr<AItem> CurrItem = InventoryComponent->CurrentItem;
+	
+	if (CurrItem)
+	{
+		InventoryComponent->RemoveItem(CurrItem);
+		const FDetachmentTransformRules DetachmentRules(
+			EDetachmentRule::KeepWorld,
+			EDetachmentRule::KeepWorld,
+			EDetachmentRule::KeepWorld,
+			true
+		);
+
+		CurrItem->SetActorEnableCollision(true);
+		CurrItem->DetachFromActor(DetachmentRules);
+		CurrItem->ReleaseItem();
 	}
 }
 
@@ -165,6 +190,11 @@ void ASHGPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 				{
 					enhancedInputComponent->BindAction(UseItemAction, ETriggerEvent::Started, this, &ASHGPlayer::UseItem);
 				}
+
+				if (DropItemAction)
+				{
+					enhancedInputComponent->BindAction(DropItemAction, ETriggerEvent::Started, this, &ASHGPlayer::DropItem);
+				}
 			}
 		}
 	}
@@ -185,7 +215,12 @@ void ASHGPlayer::Look(const FInputActionValue& Value)
 {
 	if (!bCanLook) return;
 
-	FVector2D inputVector = Value.Get<FVector2D>();
+	FVector2D inputVector = Value.Get<FVector2D>() * GameInstance->Settings.MouseSensitivity;
+
+	if (GameInstance->Settings.bInvertMouse)
+	{
+		inputVector.Y *= -1.f;
+	}
 
 	AddControllerYawInput(inputVector.X);
 	AddControllerPitchInput(inputVector.Y);
@@ -208,13 +243,12 @@ void ASHGPlayer::Pickup(const FInputActionValue& Value)
 	{
 		if (AItem* Item = Cast<AItem>(CurrentInteractable))
 		{
+			Item->PickupItem();
+
 			bool bSuccess = AddItem(Item);
 
 			if (bSuccess)
 			{
-				CurrentInteractable = nullptr;
-				CurrentInteractableComponent = nullptr;
-
 				SelectItem(Item);
 			}
 		}

@@ -48,5 +48,15 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Item")
+	void PickupItem();
+	virtual void PickupItem_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category="Item")
+	void ReleaseItem();
+	virtual void ReleaseItem_Implementation();
+
+	bool CanInteract_Implementation(AActor* Interactor, UPrimitiveComponent* Component) const override;
+
 	virtual void Interact_Implementation(AActor* Interactor, UPrimitiveComponent* Component) override;
 };

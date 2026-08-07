@@ -10,7 +10,6 @@ AFlashlight::AFlashlight()
 
 	Spotlight = CreateDefaultSubobject<USpotLightComponent>(TEXT("Spotlight"));
 	Spotlight->SetupAttachment(FlashlightMesh);
-	
 
 	bIsOn = false;
 }
@@ -33,6 +32,16 @@ void AFlashlight::OnConstruction(const FTransform& Transform)
 	{
 		Spotlight->SetVisibility(bIsOn);
 	}
+}
+
+void AFlashlight::PickupItem_Implementation()
+{
+	FlashlightMesh->SetSimulatePhysics(false);
+}
+
+void AFlashlight::ReleaseItem_Implementation()
+{
+	FlashlightMesh->SetSimulatePhysics(true);
 }
 
 void AFlashlight::Use_Implementation(AActor* User)
