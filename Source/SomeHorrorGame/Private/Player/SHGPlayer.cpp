@@ -215,9 +215,9 @@ void ASHGPlayer::Look(const FInputActionValue& Value)
 {
 	if (!bCanLook) return;
 
-	FVector2D inputVector = Value.Get<FVector2D>() * GameInstance->Settings.MouseSensitivity;
+	FVector2D inputVector = Value.Get<FVector2D>() * GameInstance->Settings->SettingsData.ControlsSettings.MouseSensitivity;
 
-	if (GameInstance->Settings.bInvertMouse)
+	if (GameInstance->Settings->SettingsData.ControlsSettings.bInvertMouse)
 	{
 		inputVector.Y *= -1.f;
 	}
