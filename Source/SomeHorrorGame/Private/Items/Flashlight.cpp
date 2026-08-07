@@ -22,6 +22,10 @@ void AFlashlight::ToggleFlashlight()
 	{
 		Spotlight->SetVisibility(bIsOn);
 	}
+
+
+	OnStateChange(bIsOn);
+	StateChanged.Broadcast(bIsOn);
 }
 
 void AFlashlight::OnConstruction(const FTransform& Transform)

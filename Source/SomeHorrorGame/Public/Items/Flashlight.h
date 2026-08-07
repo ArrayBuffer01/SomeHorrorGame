@@ -6,6 +6,8 @@
 #include "Interaction/Item.h"
 #include "Flashlight.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStateChanged, bool, bIsOn);
+
 /**
  * 
  */
@@ -23,11 +25,17 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flashlight")
 	bool bIsOn;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnStateChanged StateChanged;
 public:
 	UFUNCTION(BlueprintCallable, Category = "Flashlight")
 	void ToggleFlashlight();
 
 	virtual void OnConstruction(const FTransform& Transform) override;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnStateChange(const bool bNewState);
 
 	void PickupItem_Implementation() override;
 	void ReleaseItem_Implementation() override;
