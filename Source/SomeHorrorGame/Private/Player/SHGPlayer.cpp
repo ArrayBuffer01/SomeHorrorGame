@@ -137,69 +137,69 @@ void ASHGPlayer::Tick(float DeltaTime)
 void ASHGPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	if (APlayerController* playerController = Cast<APlayerController>(GetController()))
+	if (TObjectPtr<APlayerController> PlayerController = Cast<APlayerController>(GetController()))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(playerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(playerController->GetLocalPlayer()))
 		{
 			// Clear mappings
-			subsystem->ClearAllMappings();
+			Subsystem->ClearAllMappings();
 			// Add mapping context
-			subsystem->AddMappingContext(InputMapping, 0);
+			Subsystem->AddMappingContext(InputMapping, 0);
 
-			if (UEnhancedInputComponent* enhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+			if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 			{
 				if (MoveAction)
 				{
-					enhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASHGPlayer::Move);
+					EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASHGPlayer::Move);
 				}
 
 				if (JumpAction)
 				{
-					enhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ASHGPlayer::Jump);
-					enhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ASHGPlayer::StopJumping);
+					EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ASHGPlayer::Jump);
+					EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ASHGPlayer::StopJumping);
 				}
 
 				if (SprintAction)
 				{
-					enhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &ASHGPlayer::StartSprint);
-					enhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &ASHGPlayer::EndSprint);
+					EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &ASHGPlayer::StartSprint);
+					EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &ASHGPlayer::EndSprint);
 				}
 
 				if (LookAction)
 				{
-					enhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASHGPlayer::Look);
+					EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASHGPlayer::Look);
 				}
 
 				if (CrouchAction)
 				{
-					enhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &ASHGPlayer::StartCrouch);
+					EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &ASHGPlayer::StartCrouch);
 					//enhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &ASHGPlayer::EndCrouch);
 				}
 
 				if (InteractAction)
 				{
-					enhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &ASHGPlayer::Interact);
+					EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &ASHGPlayer::Interact);
 					//enhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &ASHGPlayer::EndCrouch);
 				}
 
 				if (PickupAction)
 				{
-					enhancedInputComponent->BindAction(PickupAction, ETriggerEvent::Started, this, &ASHGPlayer::Pickup);
+					EnhancedInputComponent->BindAction(PickupAction, ETriggerEvent::Started, this, &ASHGPlayer::Pickup);
 				}
 
 				if (UseItemAction)
 				{
-					enhancedInputComponent->BindAction(UseItemAction, ETriggerEvent::Started, this, &ASHGPlayer::UseItem);
+					EnhancedInputComponent->BindAction(UseItemAction, ETriggerEvent::Started, this, &ASHGPlayer::UseItem);
 				}
 
 				if (DropItemAction)
 				{
-					enhancedInputComponent->BindAction(DropItemAction, ETriggerEvent::Started, this, &ASHGPlayer::DropItem);
+					EnhancedInputComponent->BindAction(DropItemAction, ETriggerEvent::Started, this, &ASHGPlayer::DropItem);
 				}
 
 				if (MoveVerticalAction)
 				{
-					enhancedInputComponent->BindAction(MoveVerticalAction, ETriggerEvent::Triggered, this, &ASHGPlayer::MoveVertical);
+					EnhancedInputComponent->BindAction(MoveVerticalAction, ETriggerEvent::Triggered, this, &ASHGPlayer::MoveVertical);
 				}
 			}
 		}
