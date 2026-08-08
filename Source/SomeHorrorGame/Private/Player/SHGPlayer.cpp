@@ -5,6 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InventoryComponent.h"
+#include "Player/SHGPlayerController.h"
 #include "Game/SHGGameInstance.h"
 #include "Interaction/Item.h"
 #include "Interaction/Interactable.h"
@@ -195,6 +196,11 @@ void ASHGPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 				{
 					enhancedInputComponent->BindAction(DropItemAction, ETriggerEvent::Started, this, &ASHGPlayer::DropItem);
 				}
+
+				if (MoveVerticalAction)
+				{
+					enhancedInputComponent->BindAction(MoveVerticalAction, ETriggerEvent::Triggered, this, &ASHGPlayer::MoveVertical);
+				}
 			}
 		}
 	}
@@ -209,6 +215,15 @@ void ASHGPlayer::Move(const FInputActionValue& Value)
 
 	AddMovementInput(GetActorForwardVector(), inputVector.Y);
 	AddMovementInput(GetActorRightVector(), inputVector.X);
+}
+
+void ASHGPlayer::MoveVertical(const FInputActionValue& Value)
+{
+	if (GetCharacterMovement()->IsFlying())
+	{
+		const float VerticalValue = Value.Get<float>();
+		AddMovementInput(FVector::UpVector, VerticalValue);
+	}
 }
 
 void ASHGPlayer::Look(const FInputActionValue& Value)

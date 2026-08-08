@@ -43,6 +43,9 @@ public:
 	void Move(const FInputActionValue& Value);
 
 	UFUNCTION()
+	void MoveVertical(const FInputActionValue& Value);
+
+	UFUNCTION()
 	void Look(const FInputActionValue& Value);
 
 	// Crouching functions
@@ -147,6 +150,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> DropItemAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> MoveVerticalAction;
 
 	// Inventory state
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
