@@ -7,6 +7,12 @@
 #include "SettingsSave.h"
 #include "SHGGameInstance.generated.h"
 
+#define SETTINGS_SLOTNAME TEXT("SHG_SETTINGS")
+#define SETTINGS_SLOTINDEX 0
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSettingsSaved);
+
+
 /**
  * 
  */
@@ -26,6 +32,12 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnLoad();
+
+	UFUNCTION(BlueprintCallable)
+	bool CaptureInputSettings();
+
+	UFUNCTION(BlueprintCallable)
+	bool RestoreInputSettings();
 public:
 	UPROPERTY(BlueprintReadWrite)
 	FString PlayerName;
@@ -41,4 +53,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<USettingsSave> Settings;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnSettingsSaved OnSettingsSaved;
+
+	static constexpr int CurrentInputVersion = 1;
 };

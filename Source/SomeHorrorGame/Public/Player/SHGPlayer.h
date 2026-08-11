@@ -83,6 +83,9 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Interaction")
 	void OnInteractableFocusChanged(AActor* NewInteractable);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Init")
+	void OnPlayerInitialized();
 public:
 	// Movement speed properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Speed")

@@ -14,14 +14,31 @@ APuzzleActorBase::APuzzleActorBase()
 // Called when the game starts or when spawned
 void APuzzleActorBase::BeginPlay()
 {
-	Super::BeginPlay();
-	
+	Super::BeginPlay();	
 }
 
 // Called every frame
 void APuzzleActorBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
+void APuzzleActorBase::Solve_Implementation()
+{
+	bSolved = true;
+ 	StateChanged.Broadcast(bSolved);
+}
+
+void APuzzleActorBase::UnSolve_Implementation()
+{
+	if (!bCanUnsolve)
+		return;
+
+	bSolved = false;
+	StateChanged.Broadcast(bSolved);
+}
+
+bool APuzzleActorBase::IsSolved() const
+{
+	return bSolved;
+}

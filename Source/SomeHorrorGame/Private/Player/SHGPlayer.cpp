@@ -66,6 +66,8 @@ void ASHGPlayer::BeginPlay()
 
 	// Init GI
 	GameInstance = GetGameInstance<USHGGameInstance>();
+
+	OnPlayerInitialized();
 }
 
 bool ASHGPlayer::AddItem(AItem* Item)
@@ -107,7 +109,7 @@ void ASHGPlayer::SelectItem(AItem* Item)
 
 void ASHGPlayer::DropItem(const FInputActionValue& Value)
 {
-	TObjectPtr<AItem> CurrItem = InventoryComponent->CurrentItem;
+	AItem* CurrItem = InventoryComponent->CurrentItem;
 	
 	if (CurrItem)
 	{
@@ -137,14 +139,18 @@ void ASHGPlayer::Tick(float DeltaTime)
 void ASHGPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	if (TObjectPtr<APlayerController> PlayerController = Cast<APlayerController>(GetController()))
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
-		if (TObjectPtr<UEnhancedInputLocalPlayerSubsystem> Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			// Clear mappings
 			Subsystem->ClearAllMappings();
+
 			// Add mapping context
-			Subsystem->AddMappingContext(InputMapping, 0);
+			FModifyContextOptions ModifyOptions = FModifyContextOptions();
+			ModifyOptions.bNotifyUserSettings = true;
+
+			Subsystem->AddMappingContext(InputMapping, 0, ModifyOptions);
 
 			if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 			{

@@ -17,6 +17,12 @@ struct FControlsSettings
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mouse")
 	float MouseSensitivity = 1.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Crosshair")
+	bool bShowCrosshair = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Crosshair")
+	bool bIsCrosshairInteractive = true;
 };
 
 USTRUCT(BlueprintType)
@@ -50,6 +56,12 @@ struct FSettingsData
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mouse")
 	FControlsSettings ControlsSettings;
+
+	UPROPERTY()
+	int InputDataVersion = 1;
+
+	UPROPERTY()
+	TArray<uint8> InputData;
 };
 
 /**
