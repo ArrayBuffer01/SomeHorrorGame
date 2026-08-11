@@ -7,7 +7,9 @@ My horror game, but rewritten
 
 # General Puzzle Ideas
 - Pressure plates
-- Timed levers -> Where would it make sense on the map / which area?
+- Timed levers
+  - Inspiration: Giggleland
+  - Crowded area with crouching(?)
 - Keycode pads
 - Keys for doors
 
