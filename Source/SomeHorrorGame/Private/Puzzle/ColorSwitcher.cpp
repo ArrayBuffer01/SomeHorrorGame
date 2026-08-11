@@ -20,7 +20,7 @@ void AColorSwitcher::Interact_Implementation(AActor* Interactor, UPrimitiveCompo
 {
 	CurrentColorIndex = (CurrentColorIndex + 1) % Colors.Num();
 
-	// UpdateLightState();
+	UpdateLightState();
 
 	if (CurrentColorIndex == CorrectColorIndex)
 	{
@@ -37,7 +37,15 @@ bool AColorSwitcher::CanInteract_Implementation(AActor* Interactor, UPrimitiveCo
 	return true;
 }
 
+void AColorSwitcher::OnConstruction(const FTransform& Transform)
+{
+	UpdateLightState();
+}
+
 void AColorSwitcher::UpdateLightState()
 {
-	SpotlightComponent->LightColor = Colors[CurrentColorIndex];
+	if (CurrentColorIndex >= Colors.Num())
+		return;
+
+	SpotlightComponent->SetLightColor(Colors[CurrentColorIndex]);
 }

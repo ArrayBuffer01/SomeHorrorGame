@@ -22,19 +22,21 @@ public:
 	void Interact_Implementation(AActor* Interactor, UPrimitiveComponent* Component) override;
 	bool CanInteract_Implementation(AActor* Interactor, UPrimitiveComponent* Component) const override;
 
+	virtual void OnConstruction(const FTransform& Transform) override;
+
 	void UpdateLightState();
 public:
 	// Components
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UStaticMeshComponent> StaticMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<USpotLightComponent> SpotlightComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FColor> Colors;
+	TArray<FLinearColor> Colors;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CurrentColorIndex;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
