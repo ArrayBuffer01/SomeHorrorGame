@@ -43,6 +43,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	bool AreAllActorsSolved() const;
 
+	UFUNCTION(BlueprintPure)
+	bool IsSolved() const;
+
 	UFUNCTION()
 	void OnPuzzleActorStateChanged(bool bIsSolved);
 

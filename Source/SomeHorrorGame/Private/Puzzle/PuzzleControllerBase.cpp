@@ -58,6 +58,11 @@ bool APuzzleControllerBase::AreAllActorsSolved() const
 	return true;
 }
 
+bool APuzzleControllerBase::IsSolved() const
+{
+	return bSolved;
+}
+
 // Called every frame
 void APuzzleControllerBase::Tick(float DeltaTime)
 {
