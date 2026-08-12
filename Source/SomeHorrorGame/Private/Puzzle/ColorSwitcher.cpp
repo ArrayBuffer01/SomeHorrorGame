@@ -8,12 +8,16 @@ AColorSwitcher::AColorSwitcher()
 {
 	
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-	SpotlightComponent = CreateDefaultSubobject<USpotLightComponent>(TEXT("SpotlightComponent"));
+	//SpotlightComponent = CreateDefaultSubobject<USpotLightComponent>(TEXT("SpotlightComponent"));
 
 	SetRootComponent(StaticMesh);
-	SpotlightComponent->SetupAttachment(StaticMesh);
+	//SpotlightComponent->SetupAttachment(StaticMesh);
+
+	StaticMesh->SetMaterial(0, Material);
 
 	CurrentColorIndex = 0;
+
+	bCanUnsolve = true;
 }
 
 void AColorSwitcher::Interact_Implementation(AActor* Interactor, UPrimitiveComponent* Component)
@@ -39,6 +43,7 @@ bool AColorSwitcher::CanInteract_Implementation(AActor* Interactor, UPrimitiveCo
 
 void AColorSwitcher::OnConstruction(const FTransform& Transform)
 {
+	StaticMesh->SetMaterial(0, Material);
 	UpdateLightState();
 }
 
@@ -47,5 +52,7 @@ void AColorSwitcher::UpdateLightState()
 	if (CurrentColorIndex >= Colors.Num())
 		return;
 
-	SpotlightComponent->SetLightColor(Colors[CurrentColorIndex]);
+	// SpotlightComponent->SetLightColor(Colors[CurrentColorIndex]);
+
+	StaticMesh->SetColorParameterValueOnMaterials(TEXT("Color"), Colors[CurrentColorIndex]);
 }

@@ -33,6 +33,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<USpotLightComponent> SpotlightComponent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UMaterialInterface> Material;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FLinearColor> Colors;
 
