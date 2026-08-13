@@ -3,3 +3,7 @@
 
 #include "Player/SHGPlayerController.h"
 
+void ASHGPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+}

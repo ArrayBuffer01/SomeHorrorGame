@@ -15,4 +15,6 @@ UCLASS()
 class SOMEHORRORGAME_API ASHGPlayerController : public ASHGBasePlayerController
 {
 	GENERATED_BODY()
+public:
+	void BeginPlay() override;
 };

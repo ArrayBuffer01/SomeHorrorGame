@@ -30,4 +30,6 @@ void ASHGBasePlayerController::BeginPlay()
 	GameInstance = GetGameInstance<USHGGameInstance>();
 
 	GameInstance->RestoreInputSettings();
+
+	Super::BeginPlay();
 }

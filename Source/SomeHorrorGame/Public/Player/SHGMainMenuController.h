@@ -13,5 +13,6 @@ UCLASS()
 class SOMEHORRORGAME_API ASHGMainMenuController : public ASHGBasePlayerController
 {
 	GENERATED_BODY()
-	
+public:
+	void BeginPlay() override;
 };
