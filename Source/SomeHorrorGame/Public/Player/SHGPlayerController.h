@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
+#include "SHGBasePlayerController.h"
 #include "SHGPlayerController.generated.h"
 
 class USHGGameInstance;
@@ -12,12 +12,7 @@ class USHGGameInstance;
  * 
  */
 UCLASS()
-class SOMEHORRORGAME_API ASHGPlayerController : public APlayerController
+class SOMEHORRORGAME_API ASHGPlayerController : public ASHGBasePlayerController
 {
 	GENERATED_BODY()
-public:
-	UPROPERTY(BlueprintReadOnly)
-	TObjectPtr<USHGGameInstance> GameInstance;
-public:
-	void BeginPlay() override;
 };

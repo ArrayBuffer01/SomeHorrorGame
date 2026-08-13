@@ -7,7 +7,6 @@
 #include "SHGPlayer.generated.h"
 
 // Forward declarations
-class UInputMappingContext;
 class UInputAction;
 class UCameraComponent;
 class USHGGameInstance;
@@ -121,10 +120,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Interaction")
 	TObjectPtr<UPrimitiveComponent> CurrentInteractableComponent;
-
-	// Input related properties
-	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputMappingContext> InputMapping;
 
 	// Input actions
 	UPROPERTY(EditAnywhere, Category = "Input")
