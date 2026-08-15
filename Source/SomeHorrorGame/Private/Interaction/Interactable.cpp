@@ -9,7 +9,7 @@ void IInteractable::Interact_Implementation(AActor* Interactor, UPrimitiveCompon
 
 bool IInteractable::CanInteract_Implementation(AActor * Interactor, UPrimitiveComponent * Component) const
 {
-	return false;
+	return true;
 }
 
 void IInteractable::OnFocusStart_Implementation(AActor* Interactor, UPrimitiveComponent* Component)
