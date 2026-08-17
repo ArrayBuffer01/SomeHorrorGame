@@ -29,6 +29,9 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	bool bIsOpen;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsLocked;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -39,6 +42,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	
-	bool CanInteract_Implementation(AActor* Interactor, UPrimitiveComponent* Component) const override;
-	void Interact_Implementation(AActor* Interactor, UPrimitiveComponent* Component) override;
+	virtual bool CanInteract_Implementation(AActor* Interactor, UPrimitiveComponent* Component) const override;
+	virtual void Interact_Implementation(AActor* Interactor, UPrimitiveComponent* Component) override;
 };

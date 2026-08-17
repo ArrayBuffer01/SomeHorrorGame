@@ -23,7 +23,7 @@ AColorSwitcher::AColorSwitcher()
 void AColorSwitcher::Interact_Implementation(AActor* Interactor, UPrimitiveComponent* Component)
 {
 	CurrentColorIndex = (CurrentColorIndex + 1) % Colors.Num();
-
+	
 	UpdateLightState();
 
 	if (CurrentColorIndex == CorrectColorIndex)

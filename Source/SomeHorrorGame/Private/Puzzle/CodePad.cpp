@@ -7,7 +7,8 @@ ACodePad::ACodePad()
 {
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
 	SetRootComponent(StaticMesh);
-
+	
+	bCanUnsolve = false;
 	CurrentInput = "";
 }
 

@@ -36,7 +36,7 @@ bool ADoor::CanInteract_Implementation(AActor* Interactor, UPrimitiveComponent* 
 
 void ADoor::Interact_Implementation(AActor* Interactor, UPrimitiveComponent* Component)
 {
-	if (Component == DoorMesh)
+	if (Component == DoorMesh && !bIsLocked)
 	{
 		DoorMesh->Toggle();
 	}

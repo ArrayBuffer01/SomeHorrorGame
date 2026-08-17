@@ -23,7 +23,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Input(FString Character);
 
-	void Interact_Implementation(AActor* Interactor, UPrimitiveComponent* Component) override;
+	virtual void Interact_Implementation(AActor* Interactor, UPrimitiveComponent* Component) override;
 
 	void CheckInput();
 public:

@@ -24,7 +24,7 @@ void UMovableComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	m_fAlpha = FMath::FInterpConstantTo(m_fAlpha, m_fTargetAlpha, DeltaTime, InterpSpeed);
 
 	const bool bFinished = FMath::IsNearlyEqual(m_fAlpha, m_fTargetAlpha, KINDA_SMALL_NUMBER);
-
+	
 	if (bFinished)
 	{
 		m_fAlpha = m_fTargetAlpha;
